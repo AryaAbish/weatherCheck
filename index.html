@@ -8,23 +8,24 @@
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body background="./bg.jpg" style="background-size: cover;">
     <div class="container w-75 mt-5">
         <div class="row">
-            <div class="col">
-                <h1 id="count" class="text-warning"></h1>
-                <h6 id="feels"class="text-warning"></h6>
+            <div class="col-lg-6 col-md-3 col-sm-12">
                 <img src="./logo.png" alt="logo" height="100px" width="100px" style="border-radius: 50px;">
+                <h1 id="count" style="color: rgb(32, 32, 141);"></h1>
+                <h6 id="feels" style="color: rgb(32, 32, 141);"></h6>
             </div>
-            <div class="col text-white" style="background: url(./dual.webp);">
+            <div class="col-lg-6 col-md-9 col-sm-12 text-white" style="background: url(./dual.webp);">
                 <input id="city" type="text" class="form-control mt-3" placeholder="Enter City name">
                 <div class="text-end">
                     <button onclick="searchData()" class="btn btn-warning mt-3 mb-3">Search</button>
                     <div id="refr"></div>
                 </div>
 
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="row ">
+                <div class="col-lg-12 col-md-12 col-sm-6">
+                    <div class="row mt-4 mb-4">
                         <div class="col">
                             <h5>Country</h5>
                         </div>
@@ -67,7 +68,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 <script>
@@ -89,7 +89,7 @@
             // console.log(pressure);
             temp = cdata.main.temp
             // console.log(temp);
-            feel=cdata.main.feels_like
+            feel = cdata.main.feels_like
 
             coun.innerHTML = `${country}`
             humi.innerHTML = `${humidity}`
@@ -97,14 +97,14 @@
             press.innerHTML = `${pressure}`
             tem.innerHTML = `${temp}`
             count.innerHTML = `${city}`
-            feels.innerHTML=` feels like ${feel}`
+            feels.innerHTML = ` feels like ${feel}`
 
-            refr.innerHTML=`<button id="refresh" class="btn btn-warning mt-3 mb-3" onclick="refresh()">Refresh</button>`
+            refr.innerHTML = `<button id="refresh" class="btn btn-warning mt-3 mb-3" onclick="refresh()">Refresh</button>`
         }
     }
 
-    function refresh(){
-        window.location='index.html'
+    function refresh() {
+        window.location = 'index.html'
     }
 
 </script>
