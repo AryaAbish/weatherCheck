@@ -9,19 +9,22 @@
     <title>Document</title>
 </head>
 
-<body background="./bg.jpg" style="background-size: cover;">
+    <body>
     <div class="container w-75 mt-5">
+        <div style="background: url(./bg.jpg);" class="p-3 weather">
         <div class="row">
             <div class="col-lg-6 col-md-3 col-sm-12">
                 <img src="./logo.png" alt="logo" height="100px" width="100px" style="border-radius: 50px;">
                 <h1 id="count" style="color: rgb(32, 32, 141);"></h1>
+                <h3 id="situ" style="color: orange "></h3>
                 <h6 id="feels" style="color: rgb(32, 32, 141);"></h6>
+                <h6 id="dat" style="color: rgb(32, 32, 141);"></h6>
             </div>
             <div class="col-lg-6 col-md-9 col-sm-12 text-white" style="background: url(./dual.webp);">
-                <input id="city" type="text" class="form-control mt-3" placeholder="Enter City name">
+                <input id="city" onkeypress="mykey(event)" type="text" class="form-control mt-3" placeholder="Enter City name">
                 <div class="text-end">
                     <button onclick="searchData()" class="btn btn-warning mt-3 mb-3">Search</button>
-                    <div id="refr"></div>
+                    <span id="refr"></span>
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-6">
@@ -69,8 +72,16 @@
             </div>
         </div>
     </div>
+    </div>
 </body>
 <script>
+    function mykey(event){
+        var x=event.code;
+        if(x=="Enter"){
+            searchData()
+        }
+    }
+
     function searchData() {
         city = city.value
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5fe36b192ffd1c36dffb6752bc1722b2`)
@@ -90,19 +101,41 @@
             temp = cdata.main.temp
             // console.log(temp);
             feel = cdata.main.feels_like
+            sit=cdata.weather[0].main
 
             coun.innerHTML = `${country}`
-            humi.innerHTML = `${humidity}`
-            win.innerHTML = `${wind}`
-            press.innerHTML = `${pressure}`
-            tem.innerHTML = `${temp}`
+            situ.innerHTML=`${sit}`
+            humi.innerHTML = `${humidity} %`
+            win.innerHTML = `${wind} km/h`
+            press.innerHTML = `${pressure} hpa`
+            tem.innerHTML = `${temp} °C`
             count.innerHTML = `${city}`
-            feels.innerHTML = ` feels like ${feel}`
+            feels.innerHTML = ` feels like ${feel} °C`
+            d=new Date();
+            dat.innerHTML=`${d}`
 
             refr.innerHTML = `<button id="refresh" class="btn btn-warning mt-3 mb-3" onclick="refresh()">Refresh</button>`
-        }
-    }
 
+            switch(sit){
+            case 'Clouds':
+            weather_img.src = "clouds.jpeg";
+            break;
+            case 'Clear':
+            weather_img.src = "clear.jpeg";
+            break;
+            case 'Rain':
+            document.weather.style.backgroundImage = "url(./rain.jpeg";
+            break;
+            case 'Mist':
+            document.weather.style.backgroundImage = "mist.jpg";
+            break;
+            case 'Snow':
+            weather_img.src = "snow.jpeg";
+            break;
+            }
+
+    }
+}
     function refresh() {
         window.location = 'index.html'
     }
